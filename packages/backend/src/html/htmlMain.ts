@@ -28,7 +28,6 @@ export const htmlMain = (
 
   let result = htmlWidgetGenerator(sceneNode, settings.jsx);
 
-  // remove the initial \n that is made in Container.
   if (result.length > 0 && result.startsWith("\n")) {
     result = result.slice(1, result.length);
   }
@@ -36,18 +35,14 @@ export const htmlMain = (
   return result;
 };
 
-// todo lint idea: replace BorderRadius.only(topleft: 8, topRight: 8) with BorderRadius.horizontal(8)
 const htmlWidgetGenerator = (
   sceneNode: ReadonlyArray<SceneNode>,
   isJsx: boolean
 ): string => {
   let comp = "";
-  // filter non visible nodes. This is necessary at this step because conversion already happened.
+
   const visibleSceneNode = sceneNode.filter((d) => d.visible);
   visibleSceneNode.forEach((node, index) => {
-    // if (node.isAsset || ("isMask" in node && node.isMask === true)) {
-    //   comp += htmlAsset(node, isJsx);
-    // }
 
     switch (node.type) {
       case "RECTANGLE":
@@ -81,18 +76,10 @@ const htmlWidgetGenerator = (
 };
 
 const htmlGroup = (node: GroupNode, isJsx: boolean = false): string => {
-  // ignore the view when size is zero or less
-  // while technically it shouldn't get less than 0, due to rounding errors,
-  // it can get to values like: -0.000004196293048153166
-  // also ignore if there are no children inside, which makes no sense
   if (node.width < 0 || node.height <= 0 || node.children.length === 0) {
     return "";
   }
 
-  // const vectorIfExists = tailwindVector(node, isJsx);
-  // if (vectorIfExists) return vectorIfExists;
-
-  // this needs to be called after CustomNode because widthHeight depends on it
   const builder = new HtmlDefaultBuilder(
     node,
     showLayerName,
@@ -110,7 +97,6 @@ const htmlGroup = (node: GroupNode, isJsx: boolean = false): string => {
   return htmlWidgetGenerator(node.children, isJsx);
 };
 
-// this was split from htmlText to help the UI part, where the style is needed (without <p></p>).
 export const htmlText = (node: TextNode, isJsx: boolean): string => {
   let layoutBuilder = new HtmlTextBuilder(node, showLayerName, isJsx)
     .commonPositionStyles(node, localSettings.optimizeLayout)
