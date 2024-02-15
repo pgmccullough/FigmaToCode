@@ -6,6 +6,7 @@ import { PluginSettings } from "../code";
 import { htmlAutoLayoutProps } from "./builderImpl/htmlAutoLayout";
 import { formatWithJSX } from "../common/parseJSX";
 import { commonSortChildrenWhenInferredAutoLayout } from "../common/commonChildrenOrder";
+import { componentize } from "../common/componentize";
 
 let showLayerName = false;
 
@@ -32,7 +33,7 @@ export const htmlMain = (
     result = result.slice(1, result.length);
   }
 
-  return result;
+  return componentize(result);
 };
 
 const htmlWidgetGenerator = (
