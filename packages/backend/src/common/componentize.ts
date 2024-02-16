@@ -18,8 +18,20 @@ export const componentize = (code: string) => {
       componentCount++;
     }
   })
+
+  const duplicateCheck: string[] = [];
+
+  components.forEach((component: string) => {
+    if(!duplicateCheck.includes(component)) duplicateCheck.push(component);
+  })
+
+  let componentMessage = "";
+
+  if(duplicateCheck.length !== components.length) componentMessage = `INCLUDES ${components.length - duplicateCheck.length} DUPLICATE COMPONENTS`;
+  
+
   return `
-${code}\n\n\n****Component Count: ${components.length}*****\n\n\n
+${code}\n\n\n****Component Count: ${components.length}${componentMessage}*****\n\n\n
 ${open}
 ${components.map((component: string, index) => `\n\n\nComponent ${index}\n\n${component}`).join('')}
 ${close}
