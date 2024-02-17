@@ -35,5 +35,5 @@ ${code}\n\n\n****Component Count: ${components.length}${componentMessage}*****\n
 ${open}
 ${components.map((component: string, index) => `\n\n\nComponent ${index}\n\n${component}`).join('')}
 ${close}
-    `.replace(/-/g, ' ');
+    `;
 }

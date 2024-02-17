@@ -1,204 +1,128 @@
-const maxDash = (str) => {
-  const lines = str.split('\n');
-  let maxDashes = 0;
-  lines.forEach(line => {
-    const dashesCount = (line.match(/-/g) || []).length;
-      if (dashesCount > maxDashes) {
-        maxDashes = dashesCount;
-    }
-  })
-  return maxDashes;
-};
 
-const descendantCount = (str) => {
-  const lines = str.split('\n');
-  const hashMap = {};
-  lines.forEach(line => {
-    const key = line.match(/-/g)?.join("");
-    if(!hashMap[key] && hashMap[key] !== 0) {
-      return hashMap[key] = 1
-    }
-    hashMap[key]++;
-  })
-  delete hashMap.undefined;
-  return hashMap;
-}
-
-const test1 = `
-<div style={{width: 564, height: 1012, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 32, display: 'inline-flex'}}>
---<div style={{alignSelf: 'stretch', height: 82, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-----<div style={{alignSelf: 'stretch', color: '#666666', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '600', lineHeight: 18, wordWrap: 'break-word'}}>Username</div>
-----<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', borderRadius: 8, border: '1px #CCCCCC solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-------<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
---------<div style={{width: 304, color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Enter username</div>
---------<div style={{width: 24, height: 24, position: 'relative', opacity: 0}}>
-----------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------<div style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute', background: 'black'}}></div>
---------</div>
-------</div>
-----</div>
---</div>
---<div style={{alignSelf: 'stretch', height: 108, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-----<div style={{alignSelf: 'stretch', color: '#666666', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '600', lineHeight: 18, wordWrap: 'break-word'}}>Password</div>
-----<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', borderRadius: 8, border: '1px #CCCCCC solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-------<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
---------<div style={{width: 304, color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Enter password</div>
---------<div style={{width: 24, height: 24, position: 'relative', opacity: 0}}>
-----------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------<div style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute', background: 'black'}}></div>
---------</div>
-------</div>
-----</div>
-----<div style={{alignSelf: 'stretch', color: '#666666', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 18, wordWrap: 'break-word'}}>Your password is between 4 and 12 characters</div>
---</div>
---<div style={{alignSelf: 'stretch', height: 108, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-----<div style={{alignSelf: 'stretch', color: '#666666', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '600', lineHeight: 18, wordWrap: 'break-word'}}>Input Text Label</div>
-----<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', borderRadius: 8, border: '2px #EB5757 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-------<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
---------<div style={{width: 304, color: '#333333', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Typing |</div>
---------<div style={{width: 24, height: 24, position: 'relative'}}>
-----------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------<div style={{width: 20, height: 20, left: 2, top: 2, position: 'absolute', background: '#EB5757'}}></div>
---------</div>
-------</div>
-----</div>
-----<div style={{alignSelf: 'stretch', color: '#EB5757', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 18, wordWrap: 'break-word'}}>Error message informing me of a problem</div>
---</div>
---<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-----<div style={{width: 24, height: 24, position: 'relative'}}>
-------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 8, border: '1px #CCCCCC solid'}} />
-----</div>
-----<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Remember me</div>
---</div>
---<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-----<div style={{width: 49, height: 24, position: 'relative'}}>
-------<div style={{width: 49, height: 24, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 32, border: '1px #CCCCCC solid'}} />
-------<div style={{width: 18, height: 18, left: 28, top: 3, position: 'absolute', background: '#F4F4F4', borderRadius: 32, border: '1px #CCCCCC solid'}} />
-----</div>
-----<div style={{width: 303, color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Off</div>
---</div>
---<div style={{width: 564, height: 136, position: 'relative'}}>
-----<div style={{width: 564, left: 0, top: 0, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-------<div style={{width: 24, height: 24, position: 'relative'}}>
---------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 32, border: '1px #CCCCCC solid'}} />
-------</div>
-------<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Radio selection 1</div>
-----</div>
-----<div style={{width: 564, left: 0, top: 56, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-------<div style={{width: 24, height: 24, position: 'relative'}}>
---------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 32, border: '1px #CCCCCC solid'}} />
---------<div style={{width: 12, height: 12, left: 6, top: 6, position: 'absolute', background: '#7A5CFA', borderRadius: 32}} />
-------</div>
-------<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Radio selection 2</div>
-----</div>
-----<div style={{width: 564, left: 0, top: 112, position: 'absolute', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-------<div style={{width: 24, height: 24, position: 'relative'}}>
---------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute', background: 'white', borderRadius: 32, border: '1px #CCCCCC solid'}} />
-------</div>
-------<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Radio selection 3</div>
-----</div>
---</div>
---<div style={{alignSelf: 'stretch', height: 250, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'flex'}}>
-----<div style={{alignSelf: 'stretch', color: '#666666', fontSize: 12, fontFamily: 'Noto Sans', fontWeight: '600', lineHeight: 18, wordWrap: 'break-word'}}>Dropdown Title</div>
-----<div style={{alignSelf: 'stretch', height: 224, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
-------<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', borderTopLeftRadius: 8, borderTopRightRadius: 8, border: '2px #7A5CFA solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
---------<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-----------<div style={{flex: '1 1 0', color: '#333333', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Dropdown option</div>
-----------<div style={{width: 24, height: 24, position: 'relative'}}>
-------------<div style={{width: 12, height: 7.41, left: 6, top: 8, position: 'absolute', background: '#7A5CFA'}}></div>
-------------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------</div>
---------</div>
-------</div>
-------<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: '#7A5CFA', border: '1px #CCCCCC solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
---------<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-----------<div style={{flex: '1 1 0', color: 'white', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Dropdown option</div>
-----------<div style={{width: 24, height: 24, position: 'relative', opacity: 0}}>
-------------<div style={{width: 12, height: 7.41, left: 6, top: 8, position: 'absolute', background: '#7A5CFA'}}></div>
-------------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------</div>
---------</div>
-------</div>
-------<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', border: '1px #CCCCCC solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
---------<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-----------<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Dropdown option 1</div>
-----------<div style={{width: 24, height: 24, position: 'relative', opacity: 0}}>
-------------<div style={{width: 12, height: 7.41, left: 6, top: 8, position: 'absolute', background: '#7A5CFA'}}></div>
-------------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------</div>
---------</div>
-------</div>
-------<div style={{alignSelf: 'stretch', height: 56, padding: 16, background: 'white', borderTopLeftRadius: 8, borderTopRightRadius: 8, border: '1px #CCCCCC solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
---------<div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-----------<div style={{flex: '1 1 0', color: '#666666', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Dropdown option 2</div>
-----------<div style={{width: 24, height: 24, position: 'relative', opacity: 0}}>
-------------<div style={{width: 12, height: 7.41, left: 6, top: 8, position: 'absolute', background: '#7A5CFA'}}></div>
-------------<div style={{width: 24, height: 24, left: 0, top: 0, position: 'absolute'}}></div>
-----------</div>
---------</div>
-------</div>
-----</div>
---</div>
---<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
-----<div style={{padding: 16, background: 'white', borderRadius: 8, border: '1px #7A5CFA solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
-------<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
---------<div style={{width: 140, textAlign: 'center', color: '#7A5CFA', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Cancel</div>
-------</div>
-----</div>
-----<div style={{padding: 16, background: '#7A5CFA', borderRadius: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
-------<div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start', display: 'inline-flex'}}>
---------<div style={{width: 140, textAlign: 'center', color: 'white', fontSize: 16, fontFamily: 'Noto Sans', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Next</div>
-------</div>
-----</div>
---</div>
+<div className="Form" data nodeIds="I1:221;1:85">
+  <div className="Username" data nodeIds="I1:208;1:40">
+    <div className="InputTextLabel" data nodeIds="I1:208;1:34">Username</div>
+    <div className="InputField" data nodeIds="I1:208;1:40">
+      <div className="Text" data nodeIds="I1:208;1:40">
+        <div className="TypeHere" data nodeIds="I1:208;1:37">Enter username</div>
+        <div className="Icon" data nodeIds="I1:208;1:40">
+          <div className="Vector" data nodeIds="I1:208;1:39"></div>
+          <div className="Vector" data nodeIds="I1:208;1:40"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="Password" data nodeIds="I1:209;1:41">
+    <div className="InputTextLabel" data nodeIds="I1:209;1:34">Password</div>
+    <div className="InputField" data nodeIds="I1:209;1:40">
+      <div className="Text" data nodeIds="I1:209;1:40">
+        <div className="TypeHere" data nodeIds="I1:209;1:37">Enter password</div>
+        <div className="Icon" data nodeIds="I1:209;1:40">
+          <div className="Vector" data nodeIds="I1:209;1:39"></div>
+          <div className="Vector" data nodeIds="I1:209;1:40"></div>
+        </div>
+      </div>
+    </div>
+    <div className="AssistiveText" data nodeIds="I1:209;1:41">Your password is between 4 and 12 characters</div>
+  </div>
+  <div className="TextInputs" data nodeIds="I1:210;1:59">
+    <div className="InputTextLabel" data nodeIds="I1:210;1:52">Input Text Label</div>
+    <div className="InputField" data nodeIds="I1:210;1:58">
+      <div className="Text" data nodeIds="I1:210;1:58">
+        <div className="Typing" data nodeIds="I1:210;1:55">Typing |</div>
+        <div className="Icon" data nodeIds="I1:210;1:58">
+          <div className="Vector" data nodeIds="I1:210;1:57"></div>
+          <div className="Vector" data nodeIds="I1:210;1:58"></div>
+        </div>
+      </div>
+    </div>
+    <div className="ErrorMessageInformingMeOfAProblem" data nodeIds="I1:210;1:59">Error message informing me of a problem</div>
+  </div>
+  <div className="Checkbox" data nodeIds="I1:211;1:142">
+    <div className="Checkbox" data nodeIds="I1:211;1:138">
+      <div className="Checkbox" data nodeIds="I1:211;1:138" />
+    </div>
+    <div className="Unchecked" data nodeIds="I1:211;1:142">Remember me</div>
+  </div>
+  <div className="Toggle" data nodeIds="I1:212;1:76">
+    <div className="ToggleOff" data nodeIds="I1:212;1:75">
+      <div className="Toggle" data nodeIds="I1:212;1:74" />
+      <div className="Dot" data nodeIds="I1:212;1:75" />
+    </div>
+    <div className="Off" data nodeIds="I1:212;1:76">Off</div>
+  </div>
+  <div className="RadioButtons" data nodeIds="I1:216;1:65">
+    <div className="RadioButton" data nodeIds="I1:214;1:65">
+      <div className="Radio" data nodeIds="I1:214;1:63">
+        <div className="Radio" data nodeIds="I1:214;1:63" />
+      </div>
+      <div className="RadioSelection" data nodeIds="I1:214;1:65">Radio selection 1</div>
+    </div>
+    <div className="RadioButton" data nodeIds="I1:215;1:70">
+      <div className="Radio" data nodeIds="I1:215;1:69">
+        <div className="Radio" data nodeIds="I1:215;1:68" />
+        <div className="Dot" data nodeIds="I1:215;1:69" />
+      </div>
+      <div className="RadioSelection" data nodeIds="I1:215;1:70">Radio selection 2</div>
+    </div>
+    <div className="RadioButton" data nodeIds="I1:216;1:65">
+      <div className="Radio" data nodeIds="I1:216;1:63">
+        <div className="Radio" data nodeIds="I1:216;1:63" />
+      </div>
+      <div className="RadioSelection" data nodeIds="I1:216;1:65">Radio selection 3</div>
+    </div>
+  </div>
+  <div className="Dropdowns" data nodeIds="I1:217;1:132">
+    <div className="DropdownTitle" data nodeIds="I1:217;1:107">Dropdown Title</div>
+    <div className="DropdownOptions" data nodeIds="I1:217;1:132">
+      <div className="InputField" data nodeIds="I1:217;1:114">
+        <div className="Text" data nodeIds="I1:217;1:114">
+          <div className="DropdownOption" data nodeIds="I1:217;1:111">Dropdown option</div>
+          <div className="Icon" data nodeIds="I1:217;1:114">
+            <div className="Vector" data nodeIds="I1:217;1:113"></div>
+            <div className="Vector" data nodeIds="I1:217;1:114"></div>
+          </div>
+        </div>
+      </div>
+      <div className="Option" data nodeIds="I1:217;1:120">
+        <div className="Text" data nodeIds="I1:217;1:120">
+          <div className="DropdownOption" data nodeIds="I1:217;1:117">Dropdown option</div>
+          <div className="Icon" data nodeIds="I1:217;1:120">
+            <div className="Vector" data nodeIds="I1:217;1:119"></div>
+            <div className="Vector" data nodeIds="I1:217;1:120"></div>
+          </div>
+        </div>
+      </div>
+      <div className="Option1" data nodeIds="I1:217;1:126">
+        <div className="Text" data nodeIds="I1:217;1:126">
+          <div className="DropdownOption1" data nodeIds="I1:217;1:123">Dropdown option 1</div>
+          <div className="Icon" data nodeIds="I1:217;1:126">
+            <div className="Vector" data nodeIds="I1:217;1:125"></div>
+            <div className="Vector" data nodeIds="I1:217;1:126"></div>
+          </div>
+        </div>
+      </div>
+      <div className="Option2" data nodeIds="I1:217;1:132">
+        <div className="Text" data nodeIds="I1:217;1:132">
+          <div className="DropdownOption2" data nodeIds="I1:217;1:129">Dropdown option 2</div>
+          <div className="Icon" data nodeIds="I1:217;1:132">
+            <div className="Vector" data nodeIds="I1:217;1:131"></div>
+            <div className="Vector" data nodeIds="I1:217;1:132"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="Cta" data nodeIds="I1:221;1:85">
+    <div className="Buttons" data nodeIds="I1:220;1:88">
+      <div className="Text" data nodeIds="I1:220;1:88">
+        <div className="Clear" data nodeIds="I1:220;1:88">Cancel</div>
+      </div>
+    </div>
+    <div className="Buttons" data nodeIds="I1:221;1:85">
+      <div className="Text" data nodeIds="I1:221;1:85">
+        <div className="Go" data nodeIds="I1:221;1:85">Next</div>
+      </div>
+    </div>
+  </div>
 </div>
-`
-
-const test2 = `
-<div style={{width: 238, height: 261, position: 'relative', borderRadius: 5, overflow: 'hidden', border: '1px #9747FF dotted'}}>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 20, top: 20, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.17) inset', borderRadius: 9999, border: '1px #B6B6B6 solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 119, top: 20, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.17) inset', borderRadius: 9999, border: '6px #00A1F4 solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 20, top: 80, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', borderRadius: 9999, border: '1px #857F87 solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 119, top: 80, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.17) inset', borderRadius: 9999, border: '6px #0087CE solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 20, top: 140, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', boxShadow: '0px 0px 0px 3px rgba(0, 167.53, 255, 0.30)', borderRadius: 9999, border: '1px #E6E6E6 solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 119, top: 140, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: 'white', boxShadow: '0px 0px 0px 3px rgba(0, 167.53, 255, 0.30)', borderRadius: 9999, border: '6px #0087CE solid'}} />
-----<div style={{color: '#231F20', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 20, top: 200, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: '#F9F9F9', borderRadius: 9999, border: '1px #E6E6E6 solid'}} />
-----<div style={{color: '#857F87', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
---<div style={{paddingTop: 8, paddingBottom: 8, left: 119, top: 200, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', gap: 8, display: 'inline-flex'}}>
-----<div style={{width: 20, height: 20, background: '#F9F9F9', borderRadius: 9999, border: '6px #E6E6E6 solid'}} />
-----<div style={{color: '#857F87', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', lineHeight: 24, wordWrap: 'break-word'}}>Label</div>
---</div>
-</div>
-`
-
-console.group("Test 1: Complex");
-console.log(`Lines: ${test1.split("-<").length}`);
-console.log(`Max Depth: ${maxDash(test1)}`);
-console.log(`Shape: ${JSON.stringify(descendantCount(test1))}`);
-console.groupEnd();
-
-console.group("Test 2: Simple");
-console.log(`Lines: ${test2.split("-<").length}`);
-console.log(`Max Depth: ${maxDash(test2)}`);
-console.log(`Shape: ${JSON.stringify(descendantCount(test2))}`);
-console.groupEnd();

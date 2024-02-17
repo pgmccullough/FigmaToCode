@@ -74,13 +74,13 @@ export const PluginUI = (props: PluginUIProps) => {
             <Description selected={props.selectedFramework} />
           </div> */}
 
-          {props.htmlPreview && (
+          {/* {props.htmlPreview && (
             <Preview
               htmlPreview={props.htmlPreview}
               isResponsiveExpanded={isResponsiveExpanded}
               setIsResponsiveExpanded={setIsResponsiveExpanded}
             />
-          )}
+          )} */}
           {/* <ResponsiveGrade /> */}
           {/* <div className="h-2"></div>
         <div className="flex justify-end w-full mb-1">

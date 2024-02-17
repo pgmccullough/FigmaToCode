@@ -6,7 +6,7 @@ export const indentString = (str: string, indentLevel: number = 2): string => {
 
   // const regex = options.includeEmptyLines ? /^/gm : /^(?!\s*$)/gm;
   const regex = /^(?!\s*$)/gm;
-  return str.replace(regex, "-".repeat(indentLevel));
+  return str.replace(regex, " ".repeat(indentLevel));
 };
 
 export const indentStringFlutter = (
