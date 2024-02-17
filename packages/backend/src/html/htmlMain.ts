@@ -95,7 +95,7 @@ const htmlGroup = (node: GroupNode, isJsx: boolean = false): string => {
 
     const generator = htmlWidgetGenerator(node.children, isJsx);
 
-    return `\n<div${attr} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(generator)}\n</div>`;
+    return `\n<div${attr} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(generator)}\n</div>`;
   }
 
   return htmlWidgetGenerator(node.children, isJsx);
@@ -115,11 +115,11 @@ export const htmlText = (node: TextNode, isJsx: boolean): string => {
     content = styledHtml[0].text;
   } else {
     content = styledHtml
-      .map((style) => `<span style="${style.style}"  data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${style.text}</span>`)
+      .map((style) => `<span style="${style.style}" data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${style.text}</span>`)
       .join("");
   }
 
-  return `\n<div${layoutBuilder.build()} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${content}</div>`;
+  return `\n<div${layoutBuilder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${content}</div>`;
 };
 
 const htmlFrame = (
@@ -172,10 +172,10 @@ export const htmlAsset = (node: SceneNode, isJsx: boolean = false): string => {
   }
 
   if (tag === "div") {
-    return `\n<div${builder.build()}${src} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
+    return `\n<div${builder.build()}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
   }
 
-  return `\n<${tag}${builder.build()}${src} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}" />`;
+  return `\n<${tag}${builder.build()}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}" />`;
 };
 
 // properties named propSomething always take care of ","
@@ -227,11 +227,11 @@ export const htmlContainer = (
     const build = builder.build(additionalStyles);
 
     if (children) {
-      return `\n<${tag}${build}${src} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(children)}\n</${tag}>`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(children)}\n</${tag}>`;
     } else if (selfClosingTags.includes(tag) || isJsx) {
-      return `\n<${tag}${build}${src} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}" />`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}" />`;
     } else {
-      return `\n<${tag}${build}${src} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></${tag}>`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></${tag}>`;
     }
   }
 
@@ -249,9 +249,9 @@ export const htmlSection = (
     .applyFillsToStyle(node.fills, "background");
 
   if (childrenStr) {
-    return `\n<div${builder.build()} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(childrenStr)}\n</div>`;
+    return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(childrenStr)}\n</div>`;
   } else {
-    return `\n<div${builder.build()} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
+    return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
   }
 };
 
@@ -260,7 +260,7 @@ export const htmlLine = (node: LineNode, isJsx: boolean): string => {
     .commonPositionStyles(node, localSettings.optimizeLayout)
     .commonShapeStyles(node);
 
-  return `\n<div${builder.build()} data\-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
+  return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
 };
 
 export const htmlCodeGenTextStyles = (isJsx: boolean) => {

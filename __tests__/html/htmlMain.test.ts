@@ -91,8 +91,8 @@ describe("HTML Main", () => {
     node.children = [child];
     child.parent = node;
     expect(htmlMain([node], "", true, true))
-      .toEqual(`<div className="GROUP" style={{width: 32, height: 32, position: 'relative',}}>
-    <div className="RECT" style={{width: 4, height: 4, left: 9, top: 9, position: 'absolute', backgroundColor: 'white',}} />
+      .toEqual(`<div className="GROUP">
+    <div className="RECT" />
 </div>`);
   });
 
@@ -201,9 +201,9 @@ describe("HTML Main", () => {
     child2.parent = node;
 
     expect(htmlMain([convertToAutoLayout(node)], "", true, true))
-      .toEqual(`<div className="FRAME" style={{width: 32, height: 32, position: 'relative',}}>
-    <div className="RECT1" style={{width: 4, height: 4, left: 9, top: 9, position: 'absolute', backgroundColor: 'white',}} />
-    <div className="RECT2" style={{width: 4, height: 4, left: 9, top: 9, position: 'absolute',}} />
+      .toEqual(`<div className="FRAME">
+    <div className="RECT1" />
+    <div className="RECT2" />
 </div>`);
   });
 

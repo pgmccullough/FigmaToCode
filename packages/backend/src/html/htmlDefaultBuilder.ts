@@ -291,7 +291,7 @@ export class HtmlDefaultBuilder {
     let formattedStyle = "";
     if (this.styles.length > 0) {
       if (this.isJSX) {
-        formattedStyle = ` style={{${formattedStyles.join(", ")}}}`;
+        formattedStyle = `}`;
       } else {
         formattedStyle = ` style="${formattedStyles.join("; ")}"`;
       }

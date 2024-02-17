@@ -425,7 +425,7 @@ export const ColorsPanel = (props: {
                 ? "ring-4 ring-green-300 ring-opacity-50 animate-pulse"
                 : "ring-0"
             }`}
-            style={{ backgroundColor: color.hex }}
+           
             onClick={() => {
               handleButtonClick(color.exportValue, idx);
             }}
@@ -477,7 +477,7 @@ export const GradientsPanel = (props: {
                 ? "ring-4 ring-green-300 ring-opacity-50 animate-pulse"
                 : "ring-0"
             }`}
-            style={{ background: gradient.cssPreview }}
+           
             onClick={() => {
               handleButtonClick(gradient.exportValue, idx);
             }}
@@ -623,7 +623,7 @@ export const Preview: React.FC<{
             <div
               key={"preview " + index}
               className="relative flex flex-col items-center"
-              style={{ width: targetWidth }}
+             
             >
               <div
                 className="flex flex-col justify-center items-center border border-neutral-200 dark:border-neutral-700 rounded-md shadow-sm"

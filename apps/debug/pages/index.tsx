@@ -61,7 +61,7 @@ export default function Web() {
               alt="A random image"
               width={112}
               height={112}
-              style={{ objectFit: "cover" }}
+             
               className="rounded"
             />
           </div>

@@ -90,8 +90,8 @@ describe("Tailwind Main", () => {
     node.children = [child];
     child.parent = node;
     expect(tailwindMain([node], "", true, true))
-      .toEqual(`<div className="GROUP relative" style={{width: 32, height: 32,}}>
-    <div className="RECT w-1 h-1 absolute bg-white" style={{left: 9, top: 9,}} />
+      .toEqual(`<div className="GROUP relative">
+    <div className="RECT w-1 h-1 absolute bg-white" />
 </div>`);
   });
 
@@ -195,9 +195,9 @@ describe("Tailwind Main", () => {
     child2.parent = node;
 
     expect(tailwindMain([convertToAutoLayout(node)], "", true, true))
-      .toEqual(`<div className="FRAME relative" style={{width: 32, height: 32,}}>
-    <div className="RECT1 w-1 h-1 absolute bg-white" style={{left: 9, top: 9,}} />
-    <div className="RECT2 w-1 h-1 absolute" style={{left: 9, top: 9,}} />
+      .toEqual(`<div className="FRAME relative">
+    <div className="RECT1 w-1 h-1 absolute bg-white" />
+    <div className="RECT2 w-1 h-1 absolute" />
 </div>`);
   });
 });
