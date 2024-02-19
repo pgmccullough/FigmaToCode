@@ -24,6 +24,7 @@ export const componentize = (code: string) => {
       componentCount++;
     }
     openTag += (line.match(/<div/g) || []).length;
+    openTag += (line.match(/<img/g) || []).length;
     openTag -= (line.match(/<\/div/g) || []).length;
     openTag -= (line.match(/\/>/g) || []).length;
     if(!components[componentCount]) components[componentCount] = "";
