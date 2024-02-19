@@ -6,12 +6,15 @@ import { TailwindDefaultBuilder } from "./tailwindDefaultBuilder";
 import { PluginSettings } from "../code";
 import { tailwindAutoLayoutProps } from "./builderImpl/tailwindAutoLayout";
 import { commonSortChildrenWhenInferredAutoLayout } from "../common/commonChildrenOrder";
+import { componentize } from "../common/componentize";
 
 export let localTailwindSettings: PluginSettings;
 
 let previousExecutionCache: { style: string; text: string }[];
 
 const selfClosingTags = ["img"];
+let trackNodeIds = "";
+let nodeType = "";
 
 export const tailwindMain = (
   sceneNode: Array<SceneNode>,
@@ -27,7 +30,7 @@ export const tailwindMain = (
     result = result.slice(1, result.length);
   }
 
-  return result;
+  return componentize(result);
 };
 
 // todo lint idea: replace BorderRadius.only(topleft: 8, topRight: 8) with BorderRadius.horizontal(8)
@@ -40,6 +43,8 @@ const tailwindWidgetGenerator = (
   // filter non visible nodes. This is necessary at this step because conversion already happened.
   const visibleSceneNode = sceneNode.filter((d) => d.visible);
   visibleSceneNode.forEach((node) => {
+    trackNodeIds = node.id;
+    nodeType = node.type;
     switch (node.type) {
       case "RECTANGLE":
       case "ELLIPSE":
@@ -103,7 +108,7 @@ const tailwindGroup = (node: GroupNode, isJsx: boolean = false): string => {
 
     const generator = tailwindWidgetGenerator(node.children, isJsx);
 
-    return `\n<div${attr}>${indentString(generator)}\n</div>`;
+    return `\n<div${attr} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(generator)}\n</div>`;
   }
 
   return tailwindWidgetGenerator(node.children, isJsx);
@@ -127,11 +132,11 @@ export const tailwindText = (node: TextNode, isJsx: boolean): string => {
     content = styledHtml[0].text;
   } else {
     content = styledHtml
-      .map((style) => `<span style="${style.style}">${style.text}</span>`)
+      .map((style) => `<span style="${style.style}" data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${style.text}</span>`)
       .join("");
   }
 
-  return `\n<div${layoutBuilder.build()}>${content}</div>`;
+  return `\n<div${layoutBuilder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${content}</div>`;
 };
 
 const tailwindFrame = (
@@ -207,11 +212,11 @@ export const tailwindContainer = (
     }
 
     if (children) {
-      return `\n<${tag}${build}${src}>${indentString(children)}\n</${tag}>`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(children)}\n</${tag}>`;
     } else if (selfClosingTags.includes(tag) || isJsx) {
-      return `\n<${tag}${build}${src} />`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}" />`;
     } else {
-      return `\n<${tag}${build}${src}></${tag}>`;
+      return `\n<${tag}${build}${src} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></${tag}>`;
     }
   }
 
@@ -227,7 +232,7 @@ export const tailwindLine = (node: LineNode, isJsx: boolean): string => {
     .commonPositionStyles(node, localTailwindSettings.optimizeLayout)
     .commonShapeStyles(node);
 
-  return `\n<div${builder.build()}></div>`;
+  return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
 };
 
 export const tailwindSection = (node: SectionNode, isJsx: boolean): string => {
@@ -242,9 +247,9 @@ export const tailwindSection = (node: SectionNode, isJsx: boolean): string => {
     .customColor(node.fills, "bg");
 
   if (childrenStr) {
-    return `\n<div${builder.build()}>${indentString(childrenStr)}\n</div>`;
+    return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}">${indentString(childrenStr)}\n</div>`;
   } else {
-    return `\n<div${builder.build()}></div>`;
+    return `\n<div${builder.build()} data-nodeIds="${String(trackNodeIds)}" data-nodeType="${nodeType}"></div>`;
   }
 };
 
