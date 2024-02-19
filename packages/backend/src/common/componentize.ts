@@ -15,7 +15,6 @@ export const componentize = (code: string) => {
   const open = lines.shift();
   const close = lines.pop();
 
-
   lines.forEach((line: string, index) => {
     const nodeData = getNodeData(line);
     const [ parentId, _childId, _nodeType ] = nodeData;
@@ -23,9 +22,8 @@ export const componentize = (code: string) => {
       currentComponentId = parentId;
       componentCount++;
     }
-    openTag += (line.match(/<div/g) || []).length;
-    openTag += (line.match(/<img/g) || []).length;
-    openTag -= (line.match(/<\/div/g) || []).length;
+    openTag += (line.match(/<(div|img|span)/g) || []).length;
+    openTag -= (line.match(/<\/(div|span)/g) || []).length;
     openTag -= (line.match(/\/>/g) || []).length;
     if(!components[componentCount]) components[componentCount] = "";
     components[componentCount] += `${line}\n`;
