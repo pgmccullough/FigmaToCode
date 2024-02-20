@@ -14,7 +14,8 @@ RUN pnpm run build
 
 FROM base
 COPY . . 
+RUN pnpm install
 
 EXPOSE 8000
 
-CMD [ "pnpm", "start" ]
+CMD [ "pnpm", "run", "dev" ]
