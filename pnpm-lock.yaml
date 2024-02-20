@@ -103,8 +103,10 @@ importers:
   packages/backend:
     specifiers:
       '@figma/plugin-typings': ^1.84.0
+      '@types/diff': ^5.0.9
       '@types/react': ^18.2.48
       '@types/react-dom': ^18.2.18
+      diff: ^5.2.0
       eslint: ^8.56.0
       eslint-config-custom: workspace:*
       react: 18.2.0
@@ -114,9 +116,11 @@ importers:
       typescript: ^5.3.3
     dependencies:
       '@figma/plugin-typings': 1.86.0
+      diff: 5.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@types/diff': 5.0.9
       '@types/react': 18.2.55
       '@types/react-dom': 18.2.19
       eslint: 8.56.0
@@ -1102,6 +1106,10 @@ packages:
       '@babel/types': 7.23.9
     dev: true
 
+  /@types/diff/5.0.9:
+    resolution: {integrity: sha512-RWVEhh/zGXpAVF/ZChwNnv7r4rvqzJ7lYNSmZSVTxjV0PBLf6Qu7RNg+SUtkpzxmiNkjCx0Xn2tPp7FIkshJwQ==}
+    dev: true
+
   /@types/estree/1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
@@ -1831,6 +1839,11 @@ packages:
 
   /didyoumean/1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
+
+  /diff/5.2.0:
+    resolution: {integrity: sha512-uIFDxqpRZGZ6ThOk84hEfqWoHx2devRFvpTZcTHur85vImfaxUbTW9Ryh4CpCuDnToOP1CEtXKIgytHBPVff5A==}
+    engines: {node: '>=0.3.1'}
+    dev: false
 
   /dir-glob/3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}

@@ -1,3 +1,5 @@
+import * as Diff from "diff";
+
 const getNodeData = (line: string): string[] => {
   if(!line.split(' data-nodeIds="')[1]) return ["","",""];
   let [ parentId, childId ] = line.split(' data-nodeIds="')[1].split('"')[0].split(';');
@@ -61,6 +63,17 @@ export const componentize = (code: string) => {
 
 //   if(duplicateCheck.length !== components.length) componentMessage = `INCLUDES ${components.length - duplicateCheck.length} DUPLICATE COMPONENTS`;
   
+components.forEach((component: string, testIndex) => {
+  const testComp = component;
+  components.forEach((component: string, index) => {
+    if(index < testIndex) {
+      const diff = Diff.diffChars(testComp, component);
+      const added = diff.filter((part: any) => part.added);
+      const removed = diff.filter((part: any) => part.removed);
+      components[index] += `\nvs. Component ${testIndex}: ${((added.length>removed.length?added.length:removed.length)/components[testIndex].length*100).toFixed(2)}% difference (${added.length} added, ${removed.length} removed of ${components[testIndex].length})`
+    }
+  })
+})
 
   return `
 ${code}\n\n\n****Component Count: ${components.length}*****\n\n\n

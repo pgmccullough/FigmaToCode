@@ -15,10 +15,12 @@
   },
   "dependencies": {
     "@figma/plugin-typings": "^1.84.0",
+    "diff": "^5.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/diff": "^5.0.9",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "eslint": "^8.56.0",
